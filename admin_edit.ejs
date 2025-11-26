@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title><%= article ? 'ویرایش خبر' : 'خبر جدید' %></title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <header>
+    <h1><%= article ? 'ویرایش خبر' : 'خبر جدید' %></h1>
+    <nav><a href="/admin">بازگشت</a> | <a href="/admin/logout">خروج</a></nav>
+  </header>
+
+  <main>
+    <form method="post" action="<%= article ? '/admin/articles/' + article.id + '?_method=PUT' : '/admin/articles' %>" enctype="multipart/form-data">
+      <label>عنوان</label>
+      <input type="text" name="title" value="<%= article ? article.title : '' %>" required>
+
+      <label>خلاصه</label>
+      <textarea name="excerpt"><%= article ? article.excerpt : '' %></textarea>
+
+      <label>متن کامل (HTML مجاز)</label>
+      <textarea name="body" rows="10"><%= article ? article.body : '' %></textarea>
+
+      <label>دسته</label>
+      <select name="category">
+        <option value="">بدون دسته</option>
+        <% categories.forEach(c => { %>
+          <option value="<%= c.id %>" <%= article && article.category_id==c.id ? 'selected' : '' %>><%= c.name %></option>
+        <% }) %>
+      </select>
+
+      <label>تصویر شاخص</label>
+      <input type="file" name="featured_image">
+      <% if (article && article.featured_image) { %>
+        <img src="<%= article.featured_image %>" alt="تصویر" style="max-width:150px">
+      <% } %>
+
+      <label>وضعیت</label>
+      <select name="status">
+        <option value="draft" <%= article && article.status==='draft' ? 'selected' : '' %>>پیش‌نویس</option>
+        <option value="published" <%= article && article.status==='published' ? 'selected' : '' %>>منتشر شده</option>
+      </select>
+
+      <button type="submit">ذخیره</button>
+    </form>
+  </main>
+</body>
+</html>

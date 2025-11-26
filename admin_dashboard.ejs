@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>پنل ادمین</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>پنل ادمین</h1>
+    <nav><a href="/">مشاهده سایت</a> | <a href="/admin/logout">خروج</a></nav>
+  </header>
+
+  <main>
+    <a class="btn" href="/admin/new">خبر جدید</a>
+    <table class="admin-table">
+      <thead><tr><th>عنوان</th><th>وضعیت</th><th>نویسنده</th><th>عملیات</th></tr></thead>
+      <tbody>
+        <% articles.forEach(a => { %>
+          <tr>
+            <td><%= a.title %></td>
+            <td><%= a.status %></td>
+            <td><%= a.author %></td>
+            <td>
+              <a href="/admin/edit/<%= a.id %>">ویرایش</a> |
+              <form method="post" action="/admin/articles/<%= a.id %>?_method=DELETE" style="display:inline">
+                <button type="submit" onclick="return confirm('آیا حذف شود؟')">حذف</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

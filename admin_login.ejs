@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود ادمین</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <main class="login">
+    <h2>ورود ادمین</h2>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form method="post" action="/admin/login">
+      <label>ایمیل</label>
+      <input type="email" name="email" required>
+      <label>رمز عبور</label>
+      <input type="password" name="password" required>
+      <button type="submit">ورود</button>
+    </form>
+  </main>
+</body>
+</html>
